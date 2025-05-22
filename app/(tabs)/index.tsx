@@ -1,80 +1,75 @@
-import { Image } from "expo-image";
-import { Platform, StyleSheet } from "react-native";
-
-import { HelloWave } from "@/components/HelloWave";
-import ParallaxScrollView from "@/components/ParallaxScrollView";
-import { ThemedText } from "@/components/ThemedText";
-import { ThemedView } from "@/components/ThemedView";
+import { StatusBar } from "expo-status-bar";
+import { ScrollView, Text, TouchableOpacity, View } from "react-native";
+import tw from "twrnc";
 
 export default function HomeScreen() {
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: "#A1CEDC", dark: "#1D3D47" }}
-      headerImage={
-        <Image
-          source={require("@/assets/images/partial-react-logo.png")}
-          style={styles.reactLogo}
-        />
-      }
-    >
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title"> there!</ThemedText>
-        <HelloWave />
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 01: Try it</ThemedText>
-        <ThemedText>
-          Edit{" "}
-          <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText>{" "}
-          to see changes. Press{" "}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({
-              ios: "cmd + d",
-              android: "cmd + m",
-              web: "F12",
-            })}
-          </ThemedText>{" "}
-          to open developer tools.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-        <ThemedText>
-          {`Tap the Explore tab to learn more about what's included in this starter app.`}
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          {`When you're ready, run `}
-          <ThemedText type="defaultSemiBold">
-            npm run reset-project
-          </ThemedText>{" "}
-          to get a fresh <ThemedText type="defaultSemiBold">app</ThemedText>{" "}
-          directory. This will move the current{" "}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{" "}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-        </ThemedText>
-      </ThemedView>
-    </ParallaxScrollView>
+    <ScrollView style={tw`flex-1 bg-white`}>
+      <StatusBar style="dark" />
+
+      {/* Hero Section */}
+      <View style={tw`px-4 pt-12 pb-8 bg-white`}>
+        <Text style={tw`text-4xl font-bold text-gray-900 mb-2`}>
+          Welcome to My App
+        </Text>
+        <Text style={tw`text-lg text-gray-600 mb-6`}>
+          Your all-in-one solution for everything you need
+        </Text>
+        <TouchableOpacity style={tw`bg-blue-500 py-3 px-6 rounded-full`}>
+          <Text style={tw`text-white font-semibold text-center`}>
+            Get Started
+          </Text>
+        </TouchableOpacity>
+      </View>
+
+      {/* Features Grid */}
+      <View style={tw`px-4 py-8`}>
+        <Text style={tw`text-2xl font-bold text-gray-900 mb-6`}>Features</Text>
+        <View style={tw`flex-row flex-wrap justify-between`}>
+          {["Feature 1", "Feature 2", "Feature 3", "Feature 4"].map(
+            (feature, index) => (
+              <View
+                key={index}
+                style={tw`w-[48%] bg-white p-4 rounded-xl mb-4 shadow-sm`}
+              >
+                <View
+                  style={tw`w-12 h-12 bg-blue-100 rounded-full items-center justify-center mb-3`}
+                >
+                  <Text style={tw`text-blue-500 text-xl`}>✨</Text>
+                </View>
+                <Text style={tw`text-lg font-semibold text-gray-900 mb-1`}>
+                  {feature}
+                </Text>
+                <Text style={tw`text-gray-600`}>
+                  Description of {feature.toLowerCase()}
+                </Text>
+              </View>
+            )
+          )}
+        </View>
+      </View>
+
+      {/* Call to Action Section */}
+      <View style={tw`px-4 py-8 bg-blue-500`}>
+        <Text style={tw`text-2xl font-bold text-white mb-4`}>
+          Ready to Get Started?
+        </Text>
+        <Text style={tw`text-blue-100 mb-6`}>
+          Join thousands of users who are already using our app
+        </Text>
+        <TouchableOpacity style={tw`bg-white py-3 px-6 rounded-full`}>
+          <Text style={tw`text-blue-500 font-semibold text-center`}>
+            Sign Up Now
+          </Text>
+        </TouchableOpacity>
+      </View>
+
+      {/* Footer */}
+      <View style={tw`px-4 py-6 bg-gray-900`}>
+        <Text style={tw`text-gray-400 text-center`}>
+          © 2024 My App. All rights reserved.
+        </Text>
+      </View>
+    </ScrollView>
   );
 }
-
-const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 8,
-  },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
-  },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: "absolute",
-  },
-});
